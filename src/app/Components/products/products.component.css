@@ -10,3 +10,7 @@
   i:hover{
     cursor: pointer;
   }
+
+  .table_th{
+    padding-bottom: 2%;
+  }

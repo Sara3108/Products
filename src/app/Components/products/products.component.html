@@ -1,45 +1,125 @@
 <div class=" col-md-10 m-auto">
-    <h3 class="text-center">All Products
-        <mat-icon aria-hidden="false" aria-label="Example home icon">
-          <i class="material-icons" data-toggle="modal" data-target="#AddProduct">
-            add_box
-          </i></mat-icon>
-    </h3>
-<button class="btn btn-info" routerLink="/">Back To All Categories</button>
-<br>
-<br>
+  <h3 class="text-center">All Products
+    <mat-icon aria-hidden="false" aria-label="Example home icon">
+      <i class="material-icons" data-toggle="modal" data-target="#AddProduct">
+        add_box
+      </i></mat-icon>
+  </h3>
+  <button class="btn btn-secondary" routerLink="/">Back To All Categories</button>
+  <br>
+  <br>
+<div *ngIf="prod.length>=0">
+  <table class="table table border shadow p-3 mb-5 bg-white rounded ">
+    <thead class="thead thead-light" *ngIf="prod.length>=0">
+      <tr>
+        <!-- <th scope="col">#</th> -->
+        <th class="text-info table_th" scope="col">Product Name</th>
+        <th class="text-info table_th" scope="col">Price</th>
+        <th class="text-info table_th" scope="col">Code</th>
+        <th class="text-info table_th" scope="col">Edit</th>
+        <th class="pl-md-4" scope="col"><button class="btn btn-outline-info" (click)="DeleteProds()">Delete</button>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of prod">
+        <!-- <th scope="row">1</th> -->
+        <td>{{p.name}}</td>
+        <td>{{p.price}}</td>
+        <td>{{p.code}}</td>
+        <td class="pl-md-4"><i class="material-icons" data-toggle="modal" data-target="#EditProduct"
+            (click)="EditProduct(p)">
+            create
+          </i></td>
+        <td class="pl-md-5">
+          <mat-checkbox name="{{ p.id }}" (change)="onChangeDelete($event,p)"></mat-checkbox>
+        </td>
+      </tr>
 
-<table class="table table-bordered " *ngIf="prod!=NULL">
-  <thead class="thead thead-light">
-    <tr >
-      <!-- <th scope="col">#</th> -->
-      <th class="text-info" scope="col">Product Name</th>
-      <th class="text-info" scope="col">Price</th>
-      <th class="text-info" scope="col">Code</th>
-      <th class="text-info"  scope="col">Update</th>
-      <th  scope="col"><button class="btn btn-secondary" (click)="DeleteProds()">Delete</button></th>
-
-
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let p of prod">
-      <!-- <th scope="row">1</th> -->
-      <td>{{p.name}}</td>
-      <td>{{p.price}}</td>
-      <td>{{p.code}}</td>
-      <td><i class="material-icons">
-        create
-        </i></td>
-      <td><mat-checkbox name="{{ p.id }}" (change)="onChangeCategory(p)"></mat-checkbox></td>
-      
-
-    </tr>
-    
-  </tbody>
-</table>
-<div *ngIf="prod==NULL" class="text-center p-5">
-  No Products in this Category
+    </tbody>
+  </table>
 </div>
+  <div *ngIf="prod.length==0" class="text-center p-5">
+    No Products in this Category
+  </div>
 </div>
-<add-product></add-product>
+<!-- <add-product></add-product> -->
+
+
+<!-- Modal Add Product -->
+<div class="modal fade" id="AddProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Add Product</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form [formGroup]="ProductForm">
+        <div class="modal-body">
+
+          <div class="form-group">
+            <!-- <label for="nameInput">Name Of Product</label> -->
+            <input [formControl]="getName()" type="text" class="form-control" id="nameInput"
+              aria-describedby="emailHelp" placeholder="Name Of Product">
+          </div>
+          <div class="form-group">
+            <!-- <label for="priceInput">Price</label> -->
+            <input [formControl]="getPrice()" type="number" class="form-control" id="priceInput" placeholder="Price">
+          </div>
+          <div class="form-group">
+            <!-- <label for="priceInput">Code</label> -->
+            <input [formControl]="getCode()" type="text" class="form-control" id="priceInput" placeholder="Code">
+          </div>
+          <!-- <button type="submit" class="btn btn-primary">Add</button> -->
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="AddProduct()" data-dismiss="modal">Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ------------------------------------ -->
+
+<!-- Modal Edit Product -->
+<div class="modal fade" id="EditProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Edit Product</h5>
+        <button type="button" class="close" (click)="closeModal()" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form [formGroup]="ProductForm">
+        <div class="modal-body">
+
+          <div class="form-group">
+            <label for="nameInput">Name Of Product</label>
+            <input [formControl]="getName()" type="text" class="form-control" id="nameInput"
+              aria-describedby="emailHelp">
+          </div>
+          <div class="form-group">
+            <label for="priceInput">Price</label>
+            <input [formControl]="getPrice()" type="number" class="form-control" id="priceInput">
+          </div>
+          <div class="form-group">
+            <label for="priceInput">Code</label>
+            <input [formControl]="getCode()" type="text" class="form-control" id="priceInput">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeModal()" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="UpdateProduct()" data-dismiss="modal">Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

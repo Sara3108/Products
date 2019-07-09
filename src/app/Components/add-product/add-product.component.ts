@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Product } from 'src/app/Entities/product';
+import { DataService } from 'src/app/Services/data.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'add-product',
@@ -24,21 +26,28 @@ getPrice(){
 getCode(){
   return this.ProductForm.get('code');
 }
-// product:Product={
-//   id:this.productId+1,
-//   name: this.getName().value,
-//   price:this.getPrice().value,
-//   code:this.getCode().value
-// }
 
-  // constructor(private service: CategoriesService) { }
-  // addProduct(){
-  //   this.service.addProduct(this.product);
-  // }
+cateID;
+  constructor(private service: DataService,private route:ActivatedRoute) { }
+
 
   ngOnInit() {
-    // console.log(this.ProductForm.controls);
 
+  }
+  AddProduct(){
+   this.cateID= this.route.paramMap.subscribe(param=>{
+      param.get('Cid')
+    });
+    let product:Product={
+      id:this.productId+1,
+      categoryId:this.cateID,
+      name: this.getName().value,
+      price:this.getPrice().value,
+      code:this.getCode().value
+    }
+
+    this.service.Addproduct(product);
+    console.log('klllllllllllllllggggggggggggggggggggggggg')
   }
 
 }

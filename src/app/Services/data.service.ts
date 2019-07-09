@@ -143,13 +143,24 @@ export class DataService {
 
   deleteProds(deleted:Product[]){
     if(deleted!=null){
-      for(var i=0;i<deleted.length;i++){
+      console.log('ddddd')
+      for(let i=0;i<deleted.length;i++){
         var index = this.prods.findIndex(p => p.id == deleted[i].id);
-        console.log(index);
+        console.log("index "+index);
         this.prods.splice(index, 1);
       }
-    }
+    } 
+  }
 
-    
+  updateProd(prod){
+    let index=this.prods.findIndex(p=>p.id==prod.id);
+    let up={
+      id:this.prods[index].id,
+      categoryId:this.prods[index].categoryId,
+      name:prod.name,
+      code:prod.code,
+      price:prod.price
+    }
+    this.prods[index]=up;
   }
 }

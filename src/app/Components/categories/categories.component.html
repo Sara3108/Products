@@ -14,8 +14,7 @@
     (closed)="panelOpenState = false" *ngFor="let category of categories">
       <mat-expansion-panel-header [routerLink]="['/category',category.id]">
         <mat-panel-title 
-          style="font-size: 18px; font-weight: bold; color:darkcyan"
-          (click)="sendId(category.id)">
+          style="font-size: 18px; font-weight: bold; color:darkcyan">
           {{category.name}}
         </mat-panel-title>
         <!-- <mat-panel-description>
@@ -43,4 +42,34 @@
 </div>
 
 <add-root-category></add-root-category>
-<add-category></add-category>
+<!-- <add-category></add-category> -->
+
+
+<!-- Modal Add Category-->
+<div class="modal fade" id="AddCategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Add Category</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form [formGroup]="categoryForm">
+
+      <div class="modal-body">
+          <div class="form-group">
+            <!-- <label for="nameInput">Category Name</label> -->
+            <input [formControl]="getName()" type="text" class="form-control" id="nameInput" aria-describedby="emailHelp" placeholder="Name Of Product">
+          </div>
+          <!-- <button type="submit" class="btn btn-primary">Add</button> -->
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" (click)="AddCategory()" data-dismiss="modal" >Add</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>

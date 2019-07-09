@@ -109,8 +109,12 @@ export class DataService {
   prods: Product[]=[
     {id:1, categoryId:1,name:"Lets Lern ABCs",price:20,code:"BKL01"},
     {id:2, categoryId:1,name:"Lets Lern 123s",price:20,code:"BKL01"},
-    {id:3, categoryId:2,name:"Lets Lern ABCs",price:20,code:"BKL01"},
-    {id:4, categoryId:3,name:"HHHHHH",price:20,code:"BKL01"},
+    {id:4, categoryId:3,name:"Banana",price:20,code:"BKL01"},
+    {id:1, categoryId:2,name:"A Visit from the Goon Squad",price:10,code:"MBS01"},
+    {id:2, categoryId:2,name:"High Fidelity",price:10,code:"MBW02"},
+    {id:3, categoryId:2,name:"Porcelain",price:10,code:"MBL03"},
+    {id:4, categoryId:2,name:"Jagger",price:10,code:"MBH04"}, 
+
   ]
 
 
@@ -135,5 +139,17 @@ export class DataService {
   }
   Addproduct(p){
     this.prods.push(p);
+  }
+
+  deleteProds(deleted:Product[]){
+    if(deleted!=null){
+      for(var i=0;i<deleted.length;i++){
+        var index = this.prods.findIndex(p => p.id == deleted[i].id);
+        console.log(index);
+        this.prods.splice(index, 1);
+      }
+    }
+
+    
   }
 }

@@ -25,5 +25,17 @@ categoryId;
     // let categoryId = this.route.snapshot.paramMap.get('id');
     this.getProduct();
   }
+  tempArr: Product []=[];
+
+    onChangeCategory(cat: any){
+      console.log(cat)
+      this.tempArr.push(cat);
+      console.log(this.tempArr);
+    }
+    DeleteProds(){
+
+      this.service.deleteProds(this.tempArr);
+
+    }
 
 }

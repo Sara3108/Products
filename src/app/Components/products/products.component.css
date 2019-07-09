@@ -6,3 +6,7 @@
   ::ng-deep .mat-checkbox:not(.mat-checkbox-disabled).mat-accent .mat-checkbox-ripple .mat-ripple-element {
     background-color:  rgb(136, 9, 9) !important;
   }
+
+  i:hover{
+    cursor: pointer;
+  }

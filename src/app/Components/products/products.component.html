@@ -11,12 +11,14 @@
 
 <table class="table table-bordered " *ngIf="prod!=NULL">
   <thead class="thead thead-light">
-    <tr>
+    <tr >
       <!-- <th scope="col">#</th> -->
-      <th scope="col">Product Name</th>
-      <th scope="col">Price</th>
-      <th scope="col">Code</th>
-      <th scope="col"><button class="btn btn-secondary">Delete</button></th>
+      <th class="text-info" scope="col">Product Name</th>
+      <th class="text-info" scope="col">Price</th>
+      <th class="text-info" scope="col">Code</th>
+      <th class="text-info"  scope="col">Update</th>
+      <th  scope="col"><button class="btn btn-secondary" (click)="DeleteProds()">Delete</button></th>
+
 
     </tr>
   </thead>
@@ -26,7 +28,12 @@
       <td>{{p.name}}</td>
       <td>{{p.price}}</td>
       <td>{{p.code}}</td>
-      <td><mat-checkbox></mat-checkbox></td>
+      <td><i class="material-icons">
+        create
+        </i></td>
+      <td><mat-checkbox name="{{ p.id }}" (change)="onChangeCategory(p)"></mat-checkbox></td>
+      
+
     </tr>
     
   </tbody>

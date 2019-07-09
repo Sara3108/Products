@@ -1,0 +1,12 @@
+
+
+/* @media only screen and (min-width: 850px) {
+    .c{
+        padding-left: 14%;
+    }
+  } */
+
+ 
+  li:hover,a:hover,.addBtn:hover,mat-list-item:hover{
+    cursor: pointer;
+  }

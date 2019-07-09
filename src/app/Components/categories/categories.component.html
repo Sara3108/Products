@@ -1,0 +1,46 @@
+
+
+<div class=" m-auto px-20 c" style="width: 70%">
+  <h3 class="text-center">All Categories
+      <mat-icon aria-hidden="false" aria-label="Example home icon">
+        <i class="material-icons" data-toggle="modal" data-target="#AddRootCategory">
+          add_box
+        </i></mat-icon>
+  </h3>
+
+  <mat-accordion>
+
+    <mat-expansion-panel (opened)="panelOpenState = true"
+    (closed)="panelOpenState = false" *ngFor="let category of categories">
+      <mat-expansion-panel-header [routerLink]="['/category',category.id]">
+        <mat-panel-title 
+          style="font-size: 18px; font-weight: bold; color:darkcyan"
+          (click)="sendId(category.id)">
+          {{category.name}}
+        </mat-panel-title>
+        <!-- <mat-panel-description>
+          Currently I am {{panelOpenState ? 'open' : 'closed'}}
+        </mat-panel-description> -->
+      </mat-expansion-panel-header>
+
+      <mat-icon style="float: right">
+         <i class="material-icons addBtn" data-toggle="modal" data-target="#AddCategory">
+          add
+        </i>
+      </mat-icon>
+
+      <mat-list *ngIf="subCategories!=NULL &&loading">
+        <mat-list-item *ngFor="let c of subCategories" [routerLink]="['/product',c.id]">
+          {{c.name}}
+        </mat-list-item>
+      </mat-list>
+      <P *ngIf="subCategories.length==0" class="text-center">No Sub Categories to Display</P>
+    </mat-expansion-panel>
+
+
+  </mat-accordion>
+
+</div>
+
+<add-root-category></add-root-category>
+<add-category></add-category>

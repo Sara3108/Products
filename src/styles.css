@@ -11,3 +11,6 @@ body{
     font-weight: bold;
     color: white;
 }
+i:hover{
+    cursor: pointer;
+}

@@ -3,26 +3,23 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">Add Root Category</h5>
+        <h5 class="modal-title" id="exampleModalCenterTitle">Add Category</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form [formGroup]="categoryForm">
 
-      <div class="modal-body">
-          <div class="form-group">
-            <!-- <label for="nameInput">Category Name</label> -->
-            <input [formControl]="getName()" type="text" class="form-control" id="nameInput" aria-describedby="emailHelp" placeholder="Name Of Product">
-          </div>
-          <!-- <button type="submit" class="btn btn-primary">Add</button> -->
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary"(click)="AddRootCategory()" data-dismiss="modal">Add</button>
-      </div>
-    </form>
+          <form class="example-form" [formGroup]="categoryForm">
+              <mat-form-field style="width: 100%; padding:10px;">
+                 <input class="input" matInput [formControl]="getName()" placeholder="Name Of Product">
+                 <mat-error *ngIf="getName().invalid">{{errMsgName()}}</mat-error>
+              </mat-form-field>  
+              <div class="modal-footer">
+                  <button mat-raised-button class="btnn" type="button" data-dismiss="modal">Close</button>
+                  <button mat-raised-button color="primary" type="submit" (click)="AddRootCategory()" [attr.data-dismiss]="dataDismiss" >Add</button>
+                </div>
+
+          </form>
     </div>
   </div>
 </div>

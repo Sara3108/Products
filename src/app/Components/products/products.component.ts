@@ -3,12 +3,14 @@ import { Product } from 'src/app/Entities/product';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/Services/data.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { fade } from 'src/app/animations/animation';
 
 
 @Component({
   selector: 'products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css']
+  styleUrls: ['./products.component.css'],
+  animations:[fade]
 })
 export class ProductsComponent implements OnInit {
   prod: Product[];
@@ -16,6 +18,9 @@ export class ProductsComponent implements OnInit {
   DeletedArr: Product[] = [];
   productId: number = 20;
   updatedId;
+  cateName;
+  dataDismiss: string = ""
+
 
   ProductForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -39,10 +44,22 @@ export class ProductsComponent implements OnInit {
     return this.ProductForm.get('code');
   }
 
+  errMsgName() {
+    return this.getName().hasError('required') ? 'Name is Required' : '';
+  }
+  errMsgPrice() {
+    return this.getPrice().hasError('required') ? 'Price is Required' : '';
+  }
+  errMsgCode() {
+    return this.getCode().hasError('required') ? 'Code is Required' : '';
+  }
+
   getProduct() {
     this.route.paramMap.subscribe(param => {
       this.categoryId = +param.get('Cid');
       this.prod = this.service.GetAllProducts(this.categoryId);
+    this.cateName=this.service.getCategoryName(this.categoryId);
+
     })
   }
 
@@ -64,20 +81,24 @@ export class ProductsComponent implements OnInit {
   }
 
   AddProduct() {
-    this.route.paramMap.subscribe(param => {
-      this.categoryId = param.get('Cid');
-    });
-    console.log(this.categoryId);
-    let product: Product = {
-      id: this.productId + 1,
-      categoryId: this.categoryId,
-      name: this.getName().value,
-      price: this.getPrice().value,
-      code: this.getCode().value
+    if(this.ProductForm.valid){
+      this.route.paramMap.subscribe(param => {
+        this.categoryId = param.get('Cid');
+      });
+      let product: Product = {
+        id: this.productId + 1,
+        categoryId: this.categoryId,
+        name: this.getName().value,
+        price: this.getPrice().value,
+        code: this.getCode().value
+      }
+      this.service.Addproduct(product);
+      this.dataDismiss="modal"
+
+      this.getProduct();
     }
-    this.service.Addproduct(product);
-    console.log(product);
-    this.getProduct();
+    this.ProductForm.reset();
+ 
   }
   EditProduct(p) {
     this.updatedId = p.id;
@@ -89,19 +110,28 @@ export class ProductsComponent implements OnInit {
 
   }
   UpdateProduct() {
-    let updatedProd = {
-      id: this.updatedId,
-      name: this.getName().value,
-      price: this.getPrice().value,
-      code: this.getCode().value
+    if(this.ProductForm.valid){
+      let updatedProd = {
+        id: this.updatedId,
+        name: this.getName().value,
+        price: this.getPrice().value,
+        code: this.getCode().value
+      }
+      this.service.updateProd(updatedProd);
+      this.dataDismiss="modal"
+
+      // this.ProductForm.setValue({ name: "", code: "", price: "" });
+      this.getProduct();
+
     }
-    this.service.updateProd(updatedProd);
-    this.ProductForm.setValue({ name: "", code: "", price: "" });
-    this.getProduct();
+    this.ProductForm.reset();
+  
   }
 
   closeModal() {
-    this.ProductForm.setValue({ name: "", code: "", price: "" });
+    // this.ProductForm.setValue({ name: "", code: "", price: "" });
+    this.ProductForm.reset();
+
   }
 
 

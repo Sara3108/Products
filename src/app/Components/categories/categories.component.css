@@ -10,3 +10,11 @@
   li:hover,a:hover,.addBtn:hover,mat-list-item:hover{
     cursor: pointer;
   }
+
+  .btnn{
+    background-color:rgb(107, 107, 107); 
+    color:white
+  }
+  .input{
+    width: 100%;
+  }

@@ -163,4 +163,8 @@ export class DataService {
     }
     this.prods[index]=up;
   }
+  
+  getCategoryName(id){
+   return this.cates.find(c=>c.id==id).name;
+  }
 }

@@ -21,6 +21,7 @@ export class CategoriesComponent implements OnInit {
   categoryId;
   rootCategoryId;
   loading:boolean;
+  dataDismiss:string =""
   constructor(private service: DataService, private route: ActivatedRoute) { }
 cat:any[]=[];
 // sendId(RootCateId){
@@ -42,23 +43,28 @@ this.getCategory();
     getName(){
       return this.categoryForm.get('name');
     }
+    errMsgName(){
+      return this.getName().hasError('required') ? 'Name is Required' :'';
+    }
  
   
    rootCateId;
    cate;
-catId:number=10;
+  catId:number=10;
 
      AddCategory(){
+      if(this.categoryForm.valid){
+       
      this.route.paramMap.subscribe(param=>{
      this.rootCateId=param.get('Rid'); 
       this.cate={id:this.catId, name:this.getName().value, rootCategoryId:this.rootCateId}
-      console.log(this.cate);
-      this.getName().setValue('');
-      console.log('kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk')
        })
       this.service.Addcate(this.cate);
-      this.cate = {}; 
       this.getCategory();
+        this.dataDismiss="modal"
+      }
+      this.cate = {}; 
+      this.categoryForm.reset();
      }
 
   }

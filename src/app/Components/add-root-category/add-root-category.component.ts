@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DataService } from 'src/app/Services/data.service';
 
@@ -8,21 +8,30 @@ import { DataService } from 'src/app/Services/data.service';
   styleUrls: ['./add-root-category.component.css']
 })
 export class AddRootCategoryComponent implements OnInit {
+  catId: number = 10;
+  dataDismiss: string = ""
+  categoryForm = new FormGroup({
+    name: new FormControl('', [Validators.required])
+  })
+  constructor(private sevice: DataService) { }
 
-categoryForm= new FormGroup({
-  name:new FormControl('',[Validators.required])
-})
- constructor(private sevice:DataService) { }
-catId:number=10;
- getName(){
-   return this.categoryForm.get('name');
- }
+
+  getName() {
+    return this.categoryForm.get('name');
+  }
+  errMsgName() {
+    return this.getName().hasError('required') ? 'Name is Required' : '';
+  }
 
   ngOnInit() {
   }
 
-  AddRootCategory(){
-    this.sevice.AddRootCate({name:this.getName().value,id:this.catId+1});
+  AddRootCategory() {
+    if(this.categoryForm.valid){
+      this.sevice.AddRootCate({ name: this.getName().value, id: this.catId + 1 });
+      this.dataDismiss="modal"
+    }
+    this.categoryForm.reset(); 
   }
 
 }

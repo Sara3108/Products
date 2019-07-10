@@ -12,5 +12,20 @@
   }
 
   .table_th{
-    padding-bottom: 2%;
+    padding-bottom: 1.5%;
   }
+  .table > thead > tr:first-child > th {
+    border: none;
+}
+
+.AllProdText{
+  padding-left: 5px;
+  font-size: 23px;
+}
+.bg{
+  background-color: rgb(23, 23, 65);
+}
+.btnn{
+  background-color:rgb(107, 107, 107); 
+  color:white
+}

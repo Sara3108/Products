@@ -7,10 +7,8 @@ import { NavbarComponent } from './Components/navbar/navbar.component';
 import { CategoriesComponent } from './Components/categories/categories.component';
 import { ProductsComponent } from './Components/products/products.component';
 import { RouterModule } from '@angular/router';
-import { AddProductComponent } from './Components/add-product/add-product.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { AddRootCategoryComponent } from './Components/add-root-category/add-root-category.component';
-import { AddCategoryComponent } from './Components/add-category/add-category.component';
 import { MatComponentsModule } from './mat-components/mat-components.module';
 
 @NgModule({
@@ -19,9 +17,7 @@ import { MatComponentsModule } from './mat-components/mat-components.module';
     NavbarComponent,
     CategoriesComponent,
     ProductsComponent,
-    AddProductComponent,
     AddRootCategoryComponent,
-    AddCategoryComponent,
   ],
   imports: [
     BrowserModule,

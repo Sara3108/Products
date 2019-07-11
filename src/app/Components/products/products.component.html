@@ -1,13 +1,18 @@
 <div class=" col-md-10 m-auto">
-
+    <button mat-stroked-button routerLink="/" style="font-size: 18px ; color:rgb(23, 23, 65);">
+      All Categories
+      </button>
   <div>
-    <div style=" padding: 10px 20px 20px 20px;" class="bg  text-white">
+    <br>
+    <div class="bg text-white">
+      <div style="display: inline">
       <a class="AllProdText"> {{cateName}} Products</a>
+      </div>
       <button style="float: right" class="btn btn-success" data-toggle="modal" data-target="#AddProduct">
-        <i class="material-icons">
+        <i class="material-icons" style="top: 5px; position: relative;">
           add_circle
         </i>
-        <b> Add New Product</b>
+        Add New Product
       </button>
 
     </div>
@@ -20,7 +25,7 @@
             <th style=" width:30%" class="table_th" scope="col">Price</th>
             <th style=" width:30%" class="table_th" scope="col">Code</th>
             <th style=" width:4%" class="table_th" scope="col">Edit</th>
-            <th style=" width:4%" class="pl-md-4" scope="col"><button class="btn btn-outline-danger"
+            <th style=" width:4%" class="pl-md-4" scope="col"><button class="btn  btn-sm btn-outline-danger"
                 (click)="DeleteProds()">Delete</button>
             </th>
           </tr>

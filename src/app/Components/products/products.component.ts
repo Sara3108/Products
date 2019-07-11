@@ -10,7 +10,7 @@ import { fade } from 'src/app/animations/animation';
   selector: 'products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css'],
-  animations:[fade]
+  animations: [fade]
 })
 export class ProductsComponent implements OnInit {
   prod: Product[];
@@ -58,7 +58,7 @@ export class ProductsComponent implements OnInit {
     this.route.paramMap.subscribe(param => {
       this.categoryId = +param.get('Cid');
       this.prod = this.service.GetAllProducts(this.categoryId);
-    this.cateName=this.service.getCategoryName(this.categoryId);
+      this.cateName = this.service.getCategoryName(this.categoryId);
 
     })
   }
@@ -81,7 +81,7 @@ export class ProductsComponent implements OnInit {
   }
 
   AddProduct() {
-    if(this.ProductForm.valid){
+    if (this.ProductForm.valid) {
       this.route.paramMap.subscribe(param => {
         this.categoryId = param.get('Cid');
       });
@@ -93,12 +93,14 @@ export class ProductsComponent implements OnInit {
         code: this.getCode().value
       }
       this.service.Addproduct(product);
-      this.dataDismiss="modal"
+      this.dataDismiss = "modal"
 
       this.getProduct();
+    } else {
+      this.dataDismiss = ""
     }
     this.ProductForm.reset();
- 
+
   }
   EditProduct(p) {
     this.updatedId = p.id;
@@ -110,7 +112,7 @@ export class ProductsComponent implements OnInit {
 
   }
   UpdateProduct() {
-    if(this.ProductForm.valid){
+    if (this.ProductForm.valid) {
       let updatedProd = {
         id: this.updatedId,
         name: this.getName().value,
@@ -118,14 +120,15 @@ export class ProductsComponent implements OnInit {
         code: this.getCode().value
       }
       this.service.updateProd(updatedProd);
-      this.dataDismiss="modal"
+      this.dataDismiss = "modal"
 
       // this.ProductForm.setValue({ name: "", code: "", price: "" });
       this.getProduct();
 
+    } else {
+      this.dataDismiss = ""
     }
     this.ProductForm.reset();
-  
   }
 
   closeModal() {

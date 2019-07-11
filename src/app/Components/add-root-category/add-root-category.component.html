@@ -4,7 +4,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalCenterTitle">Add Category</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -15,7 +15,7 @@
                  <mat-error *ngIf="getName().invalid">{{errMsgName()}}</mat-error>
               </mat-form-field>  
               <div class="modal-footer">
-                  <button mat-raised-button class="btnn" type="button" data-dismiss="modal">Close</button>
+                  <button mat-raised-button class="btnn" type="button" data-dismiss="modal" (click)="closeModal()">Close</button>
                   <button mat-raised-button color="primary" type="submit" (click)="AddRootCategory()" [attr.data-dismiss]="dataDismiss" >Add</button>
                 </div>
 

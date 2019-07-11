@@ -26,8 +26,8 @@ import { MatComponentsModule } from './mat-components/mat-components.module';
     MatComponentsModule,
     RouterModule.forRoot([
       {path:'', component:CategoriesComponent},
-      {path:'product/:Cid', component:ProductsComponent},
-      {path:'category/:Rid', component:CategoriesComponent}
+      {path:'Category/:Cid', component:ProductsComponent},
+      {path:'Rootcategory/:Rid', component:CategoriesComponent}
 
 
     ]),

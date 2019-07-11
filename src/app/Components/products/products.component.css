@@ -21,9 +21,12 @@
 .AllProdText{
   padding-left: 5px;
   font-size: 23px;
+  top: 5px; 
+  position: relative;
 }
 .bg{
   background-color: rgb(23, 23, 65);
+  padding: 10px 20px 20px 20px;
 }
 .btnn{
   background-color:rgb(107, 107, 107); 

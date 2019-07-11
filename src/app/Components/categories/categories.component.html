@@ -1,41 +1,34 @@
-
-
-<div class=" m-auto px-20 c" style="width: 70%">
+<div class=" m-auto px-20 c" style="width: 40%">
   <h3 class="text-center">All Categories
-      <mat-icon aria-hidden="false" aria-label="Example home icon">
-        <i class="material-icons" data-toggle="modal" data-target="#AddRootCategory">
-          add_box
-        </i></mat-icon>
+    <mat-icon aria-hidden="false" aria-label="Example home icon">
+      <i class="material-icons" data-toggle="modal" data-target="#AddRootCategory">
+        add_box
+      </i>
+    </mat-icon>
   </h3>
-
+<br>
   <mat-accordion>
-
-    <mat-expansion-panel (opened)="panelOpenState = true"
-    (closed)="panelOpenState = false" *ngFor="let category of categories">
-      <mat-expansion-panel-header [routerLink]="['/category',category.id]">
-        <mat-panel-title style="font-size: 18px; font-weight: bold; color: rgb(23, 23, 65); ">
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false"
+      *ngFor="let category of categories">
+      <mat-expansion-panel-header [routerLink]="['/Rootcategory',category.id]">
+        <mat-panel-title style="font-size: 18px; color: rgb(23, 23, 65); ">
           {{category.name}}
         </mat-panel-title>
-        <!-- <mat-panel-description>
-          Currently I am {{panelOpenState ? 'open' : 'closed'}}
-        </mat-panel-description> -->
       </mat-expansion-panel-header>
 
       <mat-icon style="float: right">
-         <i class="material-icons addBtn" data-toggle="modal" data-target="#AddCategory">
+        <i class="material-icons addBtn" data-toggle="modal" data-target="#AddCategory">
           add
         </i>
       </mat-icon>
 
       <mat-list *ngIf="subCategories!=NULL &&loading">
-        <mat-list-item *ngFor="let c of subCategories" [routerLink]="['/product',c.id]">
+        <mat-list-item *ngFor="let c of subCategories" [routerLink]="['/Category',c.id]">
           {{c.name}}
         </mat-list-item>
       </mat-list>
       <P *ngIf="subCategories.length==0" class="text-center">No Sub Categories to Display</P>
     </mat-expansion-panel>
-
-
   </mat-accordion>
 
 </div>
@@ -45,32 +38,30 @@
 
 
 <!-- Modal Add Category-->
-<div class="modal fade" id="AddCategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="AddCategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalCenterTitle">Add Category</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
 
-          <form class="example-form" [formGroup]="categoryForm">
-              <mat-form-field style="width: 100%; padding:10px;">
-                 <input class="input" matInput [formControl]="getName()" placeholder="Name Of Product">
-                 <mat-error *ngIf="getName().invalid">{{errMsgName()}}</mat-error>
-              </mat-form-field>  
-              <div class="modal-footer">
-                  <button mat-raised-button class="btnn" type="button" data-dismiss="modal">Close</button>
-                  <button mat-raised-button color="primary" type="submit" (click)="AddCategory()" [attr.data-dismiss]="dataDismiss" >Add</button>
-                </div>
+      <form class="example-form" [formGroup]="categoryForm">
+        <mat-form-field style="width: 100%; padding:10px;">
+          <input class="input" matInput [formControl]="getName()" placeholder="Name Of Product">
+          <mat-error *ngIf="getName().invalid">{{errMsgName()}}</mat-error>
+        </mat-form-field>
+        <div class="modal-footer">
+          <button mat-raised-button class="btnn" type="button" data-dismiss="modal" (click)="closeModal()">Close</button>
+          <button mat-raised-button color="primary" type="submit" (click)="AddCategory()"
+            [attr.data-dismiss]="dataDismiss">Add</button>
+        </div>
 
-          </form>
-            
-          <!-- <button type="submit" class="btn btn-primary">Add</button> -->
-        
-     
-   
+      </form>
+
     </div>
   </div>
 </div>

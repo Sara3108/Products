@@ -12,65 +12,62 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./categories.component.css']
 })
 export class CategoriesComponent implements OnInit {
-  categoryForm= new FormGroup({
-    name:new FormControl('',[Validators.required])
+  categoryForm = new FormGroup({
+    name: new FormControl('', [Validators.required])
   })
   panelOpenState = false;
   categories: RootCategory[];
-  subCategories:RootCategory[];
-  categoryId;
-  rootCategoryId;
-  loading:boolean;
-  dataDismiss:string =""
-  constructor(private service: DataService, private route: ActivatedRoute) { }
-cat:any[]=[];
-// sendId(RootCateId){
-//   // this.rootCategoryId=RootCateId;
+  subCategories: RootCategory[];
+  loading: boolean;
+  dataDismiss: string = ""
+  rootCateId;
+  AddedCate;
+  catId: number = 10;
 
-// }
+  constructor(private service: DataService, private route: ActivatedRoute) { }
   ngOnInit() {
-this.getCategory();
+    this.getCategory();
   }
-  getCategory(){
+  getCategory() {
     this.categories = this.service.getAllRootCategory();
-    this.route.paramMap.subscribe(param=>{
-    this.rootCategoryId=param.get('Rid');
-      this.subCategories = this.service.getAllCates(this.rootCategoryId);
-      this.loading=true;
-      console.log(this.subCategories)
+    this.route.paramMap.subscribe(param => {
+      this.rootCateId = param.get('Rid');
+      this.subCategories = this.service.getAllCates(this.rootCateId);
+      this.loading = true;
+      // console.log(this.subCategories)
     })
   }
-    getName(){
-      return this.categoryForm.get('name');
-    }
-    errMsgName(){
-      return this.getName().hasError('required') ? 'Name is Required' :'';
-    }
- 
-  
-   rootCateId;
-   cate;
-  catId:number=10;
-
-     AddCategory(){
-      if(this.categoryForm.valid){
-       
-     this.route.paramMap.subscribe(param=>{
-     this.rootCateId=param.get('Rid'); 
-      this.cate={id:this.catId, name:this.getName().value, rootCategoryId:this.rootCateId}
-       })
-      this.service.Addcate(this.cate);
-      this.getCategory();
-        this.dataDismiss="modal"
-      }
-      this.cate = {}; 
-      this.categoryForm.reset();
-     }
-
+  getName() {
+    return this.categoryForm.get('name');
+  }
+  errMsgName() {
+    return this.getName().hasError('required') ? 'Name is Required' : '';
   }
 
-    
-  
-  
+  AddCategory() {
+    if (this.categoryForm.valid) {
+      this.route.paramMap.subscribe(param => {
+        this.rootCateId = param.get('Rid');
+        this.AddedCate = { id: this.catId, name: this.getName().value, rootCategoryId: this.rootCateId }
+      })
+      this.service.Addcate(this.AddedCate);
+      this.getCategory();
+      this.dataDismiss = "modal"
+    } else{
+      this.dataDismiss=""
+    }
+    this.AddedCate = {};
+    this.categoryForm.reset();
+  }
+
+  closeModal() {
+    this.categoryForm.reset();
+  }
+
+}
+
+
+
+
 
 

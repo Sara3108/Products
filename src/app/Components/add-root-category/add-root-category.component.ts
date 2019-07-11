@@ -30,8 +30,16 @@ export class AddRootCategoryComponent implements OnInit {
     if(this.categoryForm.valid){
       this.sevice.AddRootCate({ name: this.getName().value, id: this.catId + 1 });
       this.dataDismiss="modal"
+      
+    }
+    else{
+      this.dataDismiss=""
     }
     this.categoryForm.reset(); 
+    
+  }
+  closeModal() {
+    this.categoryForm.reset();
   }
 
 }
